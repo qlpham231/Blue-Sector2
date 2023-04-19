@@ -20,8 +20,6 @@ public class SlideBridge : MonoBehaviour
     
     [field: SerializeField]
     public GameObject FishSystem { get; set; }
-    [field: SerializeField]
-    public GameObject Slide { get; set; }
 
     private void start (){}
 
@@ -34,15 +32,19 @@ public class SlideBridge : MonoBehaviour
         switch(position)
         {
             case > (float) Intensity.Medium:
-            fishSystemScript.feedingIntensity = FishSystemScript.FeedingIntensity.High;
-            break;
-                
+                fishSystemScript.feedingIntensity = FishSystemScript.FeedingIntensity.High;
+                fishSystemScript.foodGivenPerSec = fishSystemScript.foodBase * 5/3;
+                fishSystemScript.emission.rateOverTime = 40;
+            break;   
             case > (float) Intensity.Low:
                 fishSystemScript.feedingIntensity = FishSystemScript.FeedingIntensity.Medium;
-                break;
-
+                fishSystemScript.foodGivenPerSec = fishSystemScript.foodBase * 1;
+                fishSystemScript.emission.rateOverTime = 20;
+            break;
             default:
                 fishSystemScript.feedingIntensity = FishSystemScript.FeedingIntensity.Low;
+                fishSystemScript.foodGivenPerSec = fishSystemScript.foodBase * 1/3;
+                fishSystemScript.emission.rateOverTime = 5;
                 break;
         }
     }
